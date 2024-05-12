@@ -15,7 +15,7 @@
                     window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/${url.searchParams.get('id')}/posts/${url.searchParams.get('story_fbid')}/`;
                 }
             } else {  // iOS device
-                window.location.href = `fb://story/?graphqlid=${url.searchParams.get('graphqlid')}&wtsid=${url.searchParams.get('wtsid')}`;
+                window.location.href = `fb://story/?graphqlid=${url.searchParams.get('graphqlid')}`;
             }
         </script>
     </body>
