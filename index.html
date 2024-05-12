@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>Redirecting...</title>
+    </head>
+    <body>
+        <h1>Redirecting...</h1>
+        <a href="" target="_blank">Open FaceBook.</a>
+        <script>
+            const url = new URL(window.location.href);
+            document.querySelector('a').href = `https://www.facebook.com/share/${url.searchParams.get('share')}/`;
+            if (navigator.userAgent.includes("Android")) {  // Android device
+                window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/share/${url.searchParams.get('share')}/`;
+            } else {  // iOS device
+                window.location.href = `fb://story/?graphqlid=${url.searchParams.get('graphqlid')}&wtsid=${url.searchParams.get('wtsid')}`;
+            }
+        </script>
+    </body>
+</html>
