@@ -7,17 +7,33 @@
         <a href="" target="_blank">Open FaceBook.</a>
         <script>
             const url = new URL(window.location.href);
-            document.querySelector('a').href = `https://www.facebook.com/share/${url.searchParams.get('share')}/`;
+            let href = null;
+
+            if (url.searchParams.get('share') !== null) {
+                href = `https://www.facebook.com/share/${url.searchParams.get('share')}/`;
+            } else if (url.searchParams.get('id') !== null && url.searchParams.get('story_fbid') !== null) {
+                href = `https://www.facebook.com/${url.searchParams.get('id')}/posts/${url.searchParams.get('story_fbid')}/`;
+            } else if (url.searchParams.get('postsname') !== null && url.searchParams.get('postsid') !== null) {
+                href = `https://www.facebook.com/url.searchParams.get('postsname')/posts/${url.searchParams.get('postsid')}`;
+            }
+
+            if (href !== null) {
+                document.querySelector('a').href = href;
+                setTimeout(function() {
+                    window.location.href = href;
+                }, 5000);
+            }
+            
             if (navigator.userAgent.includes("Android")) {  // Android device
                 if (url.searchParams.get('share') !== null) {
-                    window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/share/${url.searchParams.get('share')}/`;
+                    window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/share/${url.searchParams.get('share')}/`;                    
                 } else if (url.searchParams.get('id') !== null && url.searchParams.get('story_fbid') !== null) {
                     window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/${url.searchParams.get('id')}/posts/${url.searchParams.get('story_fbid')}/`;
                 } else if (url.searchParams.get('postsname') !== null && url.searchParams.get('postsid') !== null) {
                     window.location.href = `fb://facewebmodal/f?href=https://www.facebook.com/url.searchParams.get('postsname')/posts/${url.searchParams.get('postsid')}`;
                 }
             } else {  // iOS device
-                window.location.href = `fb://story/?graphqlid=${url.searchParams.get('graphqlid')}`;
+                window.location.href = `fb://story/?graphqlid=${url.searchParams.get('graphqlid')}`;                
             }
         </script>
     </body>
